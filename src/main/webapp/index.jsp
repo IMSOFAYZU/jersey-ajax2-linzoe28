@@ -23,7 +23,13 @@
             
             function deleteUser(id){
                 //用 delete 呼叫 webapi/user
-                $.ajax("webapi/user", {
+                $.ajax("webapi/user/"+id, {
+                    type:"delete",
+                    success:function(data){
+                        alert(data);
+                        window.location.reload();
+                        
+                    }
                 });
                 ///////////////////////////
             }

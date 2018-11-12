@@ -22,27 +22,36 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("user")
 public class UserResource {
+
     //加上 @Path 等等 annotation, 讓它回傳某個特定 user
-    public User getUser(String id){
+    public User getUser(String id) {
         return UserDB.getUser(id);
     }
     ///////////////////////////////////////////////
-    
+
     //加上 @PUT 等等 annotation，實作 edit
-    public int updateUser(User user){
+    public int updateUser(User user) {
         return 0;
     }
     //////////////////////////////////////
-    
+
     //加上 @POST 等等 annotation，實作 add
-    public int addUser(User user){
+    public int addUser(User user) {
         return 1;
     }
     ///////////////////////////////////
-    
+
     //加上 @DELETE 等等 annotation，實作 delete
-    public int deleteUser(String id){
-        return 0;
+    @DELETE
+    @Path("/{id}")
+    public int deleteUser(@PathParam("id") String id) {
+        User user = UserDB.getUser(id);
+        if (user != null) {
+            UserDB.deleteUser(user);
+            return 1;
+        } else {
+            return 0;
+        }
     }
     /////////////////////////////////////////
 }
