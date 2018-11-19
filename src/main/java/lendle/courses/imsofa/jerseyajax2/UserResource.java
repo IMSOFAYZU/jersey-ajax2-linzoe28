@@ -24,14 +24,21 @@ import javax.ws.rs.core.MediaType;
 public class UserResource {
 
     //加上 @Path 等等 annotation, 讓它回傳某個特定 user
-    public User getUser(String id) {
+    @Path("/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public User getUser(@PathParam("id") String id) {
         return UserDB.getUser(id);
     }
     ///////////////////////////////////////////////
 
     //加上 @PUT 等等 annotation，實作 edit
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
     public int updateUser(User user) {
-        return 0;
+        UserDB.deleteUser(user);
+        UserDB.addUser(user);
+        return 1;
     }
     //////////////////////////////////////
 
